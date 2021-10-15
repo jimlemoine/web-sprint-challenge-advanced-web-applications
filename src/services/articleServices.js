@@ -3,7 +3,7 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 
 
 const articleService = ()=> {
-    const newArticles = axiosWithAuth()
+    return axiosWithAuth()
     .get('http://localhost:5000/api/articles')
     .then(resp => {
         // console.log('resp.data', resp.data)
@@ -12,10 +12,8 @@ const articleService = ()=> {
     .catch(err => {
         console.log('get article error: ', err);
     });
-    // console.log('newArticles', newArticles);
-    return newArticles
 }
-// console.log('articleService', articleService());
+
 export default articleService;
 
 //Task List:

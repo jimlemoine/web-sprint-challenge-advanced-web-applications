@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-// import articleService from '../services/articleServices';
+import articleService from '../services/articleServices';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
 import Article from './Article';
@@ -12,13 +12,10 @@ const View = (props) => {
     const [editing, setEditing] = useState(false);
     const [editId, setEditId] = useState();
 
-// I cannot figure out how to get articleService to work in my useEffect here so I've put the axios call here
-
-    useEffect(() => {
-        axiosWithAuth()
-            .get('http://localhost:5000/api/articles')
+    useEffect (() => {
+        articleService()
             .then(resp => {
-                setArticles(resp.data);
+                setArticles(resp);
             })
             .catch(err => {
                 console.log('get article error: ', err);
