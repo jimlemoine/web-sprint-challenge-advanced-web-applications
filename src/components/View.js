@@ -26,7 +26,8 @@ const View = (props) => {
         axiosWithAuth()
             .delete(`http://localhost:5000/api/articles/${id}`)
             .then(resp => {
-                setArticles(articles.filter(article => article.id !== parseInt(id)));
+                setArticles(articles.filter(article => article.id !== id));
+                console.log('articles after delete:', articles)
             })
             .catch(err => {
                 console.log('article delete error: ', err);
