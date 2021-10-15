@@ -1,6 +1,8 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import articleService from '../services/articleServices';
+// import articleService from '../services/articleServices';
+import axiosWithAuth from '../utils/axiosWithAuth';
 
 import Article from './Article';
 import EditForm from './EditForm';
@@ -10,14 +12,40 @@ const View = (props) => {
     const [editing, setEditing] = useState(false);
     const [editId, setEditId] = useState();
 
+// I cannot figure out how to get articleService to work in my useEffect here so I've put the axios call here
+
     useEffect(() => {
-        setArticles(articleService());
+        axiosWithAuth()
+            .get('http://localhost:5000/api/articles')
+            .then(resp => {
+                setArticles(resp.data);
+            })
+            .catch(err => {
+                console.log('get article error: ', err);
+            });
     }, []);
     
     const handleDelete = (id) => {
+        axiosWithAuth()
+            .delete(`http://localhost:5000/api/articles/${id}`)
+            .then(resp => {
+                setArticles(articles.filter(article => article.id !== parseInt(id)));
+            })
+            .catch(err => {
+                console.log('article delete error: ', err);
+            })
     }
 
     const handleEdit = (article) => {
+        axiosWithAuth()
+            .put(`http://localhost:5000/api/articles/${article.id}`, article)
+            .then(resp => {
+                setArticles(resp.data);
+                setEditing(false);
+            })
+            .catch(err => {
+                console.log('article edit error: ', err);
+            })
     }
 
     const handleEditSelect = (id)=> {
