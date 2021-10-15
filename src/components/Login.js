@@ -57,7 +57,7 @@ const Login = () => {
                 />
                 <button id="submit">Log in</button>
             </form>
-            { error && <p>We received the following error: {error}</p>}
+            { error && <p id='error' >Please supply the correct username and password!</p>}
         </ModalContainer>
     </ComponentContainer>);
 }

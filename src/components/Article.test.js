@@ -1,24 +1,26 @@
 import React from 'react';
 import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 import MutationObserver from 'mutationobserver-shim';
 
 import Article from './Article';
-import { render } from 'react-dom';
-
-test('renders component without errors', ()=> {
-    render(<Article />)
-});
+// import { render } from 'react-dom';
 
 const testArticle = {
-    id: 'abc',
+    id: 23,
     headline: 'test headline',
     createdOn: '2021-08-09T18:02:38-05:00',
+    image: 134,
     summary: 'test summary',
     body: 'test body',
     author: 'test author'
 }
+
+test('renders component without errors', ()=> {
+    render(<Article article={testArticle}/>)
+});
 
 test('renders headline, author from the article when passed in through props', ()=> {
     render(<Article article={testArticle} />);
